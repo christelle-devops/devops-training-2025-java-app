@@ -7,5 +7,12 @@ pipeline {
 				echo'Jenkinsfile OK - pipeline lancé'
 			}
 		}
+		
+		stage('info') {
+			steps {
+				echo "Job: ${env.JOB_NAME}"
+				echo "Build: ${env.BUILD_NUMBER}"
+			}
+		}
 	}
 }
