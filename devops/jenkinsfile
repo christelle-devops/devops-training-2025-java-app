@@ -1,0 +1,11 @@
+pipeline {
+	agent any
+
+	stages {
+		stage('Dummy') {
+			steps {
+				echo'Jenkinsfile OK - pipeline lancé'
+			}
+		}
+	}
+}
