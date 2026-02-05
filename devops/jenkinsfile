@@ -1,3 +1,11 @@
+def runInDocker(String image, Closure body) {
+	docker.image(image).inside {
+		body()
+		}
+	}
+
+
+
 pipeline {
 	agent any
 
@@ -15,25 +23,21 @@ pipeline {
 			}
 		}
  		stage('Lint') {
-			agent {
-				docker {
-					image 'maven:3.8.6-openjdk-11-slim'
-					
-				}
-			}
 			steps {
-				sh 'make lint'
+				script {
+					runInDocker('maven:3.8.6-openjdk-11-slim') {
+	
+					sh 'make lint'
+					}
 				
+				}
 			}
 		}
 		stage('Test') {
-			agent {
-				docker {
-					image 'maven:3.8.6-openjdk-11-slim'
-					}
-				}
 			steps {
-				sh 'make test'
+				script {
+					runInDocker('maven:3.8.6-openjdk-11-slim')
+					sh 'make test'
 				}
 			}
 
